@@ -5,7 +5,7 @@
     <div>
         <Form class="forms" :fields="fields">
             <template #footer>
-                <Divider direction="horizontal" :width="75"/>
+                <Divider direction="horizontal" :width="80"/>
                 <div class="text-center my-4">
                 <b-button class="" :to="{ name: 'sign' }" variant="outline-primary" pill>
                     S'inscrire

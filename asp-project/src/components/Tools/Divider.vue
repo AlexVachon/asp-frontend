@@ -11,11 +11,11 @@ import type { TDivider } from '@/components/Types/types';
 
 const props = defineProps({
   width: {
-    type: Number, // Largeur en pourcentage ou 0-100 en valeur fixe
+    type: Number,
     default: 100,
   },
   direction: {
-    type: String as () => TDivider, // horizontal ou vertical
+    type: String as () => TDivider,
     default: 'horizontal',
   },
 });
