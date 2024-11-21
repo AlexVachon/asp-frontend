@@ -2,5 +2,29 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 .container {
-  @extend .container, .my-4;
+  @extend .container-sm, .my-5;
+}
+
+.forms {
+  @extend .mx-auto;
+  min-width: 300px;
+  max-width: 450px;
+}
+
+.center-header {
+  @extend .text-center, .mb-5;
+}
+
+.divider {
+  background-color: #ccc;
+  @extend .m-auto;
+  &.horizontal {
+    @extend .my-3;
+    height: 1px;
+  }
+
+  &.vertical {
+    @extend .vr, .my-3, .h-100;
+    width: 1px;
+  }
 }
