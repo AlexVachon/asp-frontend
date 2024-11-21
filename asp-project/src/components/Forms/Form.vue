@@ -5,8 +5,8 @@
                 <b-form @submit.prevent="onSubmit" @reset="onReset">
                     <div v-for="(field, index) in fields" :key="index" class="mb-3">
                         <b-form-group :label="field.label" :description="field.description">
-                            <b-form-input v-model="formData[field.name]" :type="field.type" :name="field.name"
-                                :placeholder="field.placeholder" :state="submitted? getFieldState(field.name) : type === 'LogIn' ? undefined : true " />
+                            <b-form-input v-model="formData[field.name]" :type="field.type" :name="field.name" :required="field.required"
+                                :placeholder="field.placeholder" :state="submitted? getFieldState(field.name) : formType === 'LogIn' ? null : true " />
 
                             <b-form-invalid-feedback v-if="submitted && getFieldState(field.name) === false">
                                 {{ getRule(field.name) }}
@@ -33,15 +33,15 @@ import { ref } from 'vue';
 import type { PropType } from 'vue';
 import type { TField } from '@/components/Types/types';
 import Loading from '@/components/Tools/Loading.vue';
-
+import type { TAuthForm } from '@/components/Types/types';
 
 const props = defineProps({
     submit: {
         type: Function,
         default: async () => await new Promise(r => setTimeout(r, 3000))
     },
-    type: {
-        type: String,
+    formType: {
+        type: String as () => TAuthForm,
         default: "LogIn",
         required: true
     },

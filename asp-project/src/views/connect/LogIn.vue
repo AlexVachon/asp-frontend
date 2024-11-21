@@ -3,7 +3,7 @@
         S'identifier
     </h1>
     <div>
-        <Form class="auth-forms" :fields="fields">
+        <Form class="auth-forms" :fields="fields" form-type="LogIn">
             <template #footer>
                 <Divider direction="horizontal" :width="80"/>
                 <div class="text-center my-4">
@@ -26,6 +26,7 @@ const fields: TField[] = [
         name: 'email',
         type: 'email',
         label: "Email",
+        required: true,
         placeholder: 'Entrez votre email',
         rules: [
             {
@@ -38,6 +39,7 @@ const fields: TField[] = [
         name: 'password',
         label: 'Mot de passe',
         type: 'password',
+        required: true,
         placeholder: 'Entrez votre mot de passe',
         rules: [
             {
