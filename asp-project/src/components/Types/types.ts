@@ -9,7 +9,7 @@ export interface TField {
     label: string;
     placeholder?: string;
     description?: string;
-    rules?: TRule[];
+    rules: TRule[];
 }
 
 export type TDivider = 'horizontal' | 'vertical';
