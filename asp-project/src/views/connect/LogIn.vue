@@ -3,7 +3,7 @@
         S'identifier
     </h1>
     <div>
-        <Form class="forms" :fields="fields">
+        <Form class="auth-forms" :fields="fields">
             <template #footer>
                 <Divider direction="horizontal" :width="80"/>
                 <div class="text-center my-4">
