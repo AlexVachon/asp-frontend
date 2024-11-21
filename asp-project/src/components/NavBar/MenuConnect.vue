@@ -1,15 +1,17 @@
 <template>
 
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar bg-body-tertiary shadow-sm p-2">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                FlowSync
+            <a class="navbar-brand" href="/">
+                <img src="/mast.png" alt="Logo" width="30" height="25" class="d-inline-block align-text-top">
+                Mast
             </a>
+            <SwitchTheme />
         </div>
     </nav>
 
 </template>
 
 <script lang="ts" setup>
-
+import SwitchTheme from '../Tools/SwitchTheme.vue';
 </script>

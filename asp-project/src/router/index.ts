@@ -18,7 +18,6 @@ const router = createRouter({
     {
       path: '/auth',
       name: 'auth',
-      component: () => import('@/views/connect/ConnectView.vue'),
       children: [
         {
           path: 'login',

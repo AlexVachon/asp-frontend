@@ -1,5 +1,6 @@
+@import "@/assets/variables.scss";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
-body {
-  font-family: "Lexend Deca", sans-serif;
+.container {
+  @extend .container, .my-4;
 }
