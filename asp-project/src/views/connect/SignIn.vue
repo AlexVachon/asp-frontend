@@ -93,10 +93,15 @@ const fields: TField[] = [
         name: 'password',
         type: 'password',
         label: 'Mot de passe',
+        description: 'Min. 8 caractères et max. 20 caractères',
         rules: [
             {
                 message: 'Ne peut être vide !',
                 validate: (value: string) => !!value
+            },
+            {
+                message: "Votre mot de passe n'est pas conforme !",
+                validate: (value: string) => value.length >= 8 && value.length <= 20
             }
         ]
     },
