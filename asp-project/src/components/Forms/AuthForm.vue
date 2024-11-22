@@ -5,8 +5,9 @@
                 <b-form @submit.prevent="onSubmit" @reset="onReset">
                     <div v-for="(field, index) in fields" :key="index" class="mb-3">
                         <b-form-group :label="field.label" :description="field.description">
-                            <b-form-input v-model="formData[field.name]" :type="field.type" :name="field.name" :required="field.required"
-                                :placeholder="field.placeholder" :state="submitted? getFieldState(field.name) : formType === 'LogIn' ? null : true " />
+                            <b-form-input v-model="formData[field.name]" :type="field.type" :name="field.name"
+                                :required="field.required" :placeholder="field.placeholder"
+                                :state="submitted ? getFieldState(field.name) : null" />
 
                             <b-form-invalid-feedback v-if="submitted && getFieldState(field.name) === false">
                                 {{ getRule(field.name) }}
@@ -15,8 +16,8 @@
                     </div>
                     <slot actions>
                         <b-list-group horizontal class="gap-1 d-flex justify-content-center my-4">
-                            <b-button type="submit" variant="outline-primary" :disabled="isLoading"
-                                pill>S'identifier</b-button>
+                            <b-button type="submit" variant="outline-primary" :disabled="isLoading" pill>{{ formType ===
+                                'LogIn' ? "S'identifier" : 'Créer un compte' }}</b-button>
                             <b-button type="reset" variant="outline-secondary" :disabled="isLoading" pill>Réinitialiser
                             </b-button>
                         </b-list-group>
@@ -29,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import type { PropType } from 'vue';
 import type { TField } from '@/components/Types/types';
 import Loading from '@/components/Tools/Loading.vue';
@@ -39,6 +40,10 @@ const props = defineProps({
     submit: {
         type: Function,
         default: async () => await new Promise(r => setTimeout(r, 3000))
+    },
+    formData: {
+        type: Object,
+        required: true
     },
     formType: {
         type: String as () => TAuthForm,
@@ -51,9 +56,10 @@ const props = defineProps({
     }
 });
 
-const isLoading = ref(false)
+const isLoading = ref(false);
 
-const formData = ref<any>({});
+const formData = computed(() => props.formData);
+
 const formErrors = ref<any>({});
 const submitted = ref(false);
 
@@ -76,7 +82,7 @@ const getFieldState = (fieldName: string) => {
     return (submitted.value && !formErrors.value[fieldName]) ? true : false;
 };
 
-const onSubmit = async() => {
+const onSubmit = async () => {
     isLoading.value = true
     submitted.value = true;
 
@@ -103,7 +109,6 @@ const onSubmit = async() => {
 };
 
 const onReset = () => {
-    formData.value = {};
     formErrors.value = {};
     submitted.value = false;
     initializeFormData();

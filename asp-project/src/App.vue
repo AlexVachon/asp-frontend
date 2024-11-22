@@ -1,13 +1,9 @@
 <template>
-    <div v-if="['login', 'sign'].includes(route.name as string)">
-      <MenuConnect />
-    </div>
-    <div v-else>
+  <MenuConnect v-if="['login', 'sign'].includes(route.name as string)" />
 
-    </div>
-    <main class="container">
-      <RouterView />
-    </main>
+  <main class="content">
+    <RouterView />
+  </main>
 </template>
 
 <script setup lang="ts">

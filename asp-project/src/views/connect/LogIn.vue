@@ -3,23 +3,30 @@
         S'identifier
     </h1>
     <div>
-        <Form class="auth-forms" :fields="fields" form-type="LogIn">
+        <AuthForm class="auth-forms" :form-data="formData" :fields="fields" form-type="LogIn">
             <template #footer>
-                <Divider direction="horizontal" :width="80"/>
+                <Divider direction="horizontal" :width="80" />
                 <div class="text-center my-4">
-                <b-button class="" :to="{ name: 'sign' }" variant="outline-primary" pill>
-                    S'inscrire
-                </b-button>
+                    <b-button :to="{ name: 'sign' }" variant="outline-primary" pill>
+                        S'inscrire
+                    </b-button>
                 </div>
             </template>
-        </Form>
+        </AuthForm>
     </div>
 
 </template>
 <script lang="ts" setup>
-import Form from '@/components/Forms/Form.vue';
+import { ref } from 'vue';
+import AuthForm from '@/components/Forms/AuthForm.vue';
 import type { TField } from '@/components/Types/types';
 import Divider from '@/components/Tools/Divider.vue';
+
+const formData = ref({
+    email: '',
+    password: ''
+})
+
 
 const fields: TField[] = [
     {

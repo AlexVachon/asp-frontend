@@ -1,6 +1,6 @@
 <template>
 
-    <nav class="navbar bg-body-tertiary shadow-sm p-2">
+    <nav class="menu-connect">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
                 <img src="/mast.png" alt="Logo" width="30" height="25" class="d-inline-block align-text-top">
