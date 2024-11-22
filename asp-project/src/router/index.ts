@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 const isAuthenticated = () => {
-  // Vérifie si un token est présent dans le localStorage pour déterminer l'authentification
   return localStorage.getItem('authToken') !== null;
 };
 
@@ -11,7 +10,6 @@ const router = createRouter({
     {
       path: '/',
       redirect: () => {
-        // Redirige vers /app si connecté, sinon vers /auth/login
         return isAuthenticated() ? '/app' : '/auth/login';
       },
     },
