@@ -16,3 +16,10 @@ export interface TField {
 }
 
 export type TDivider = 'horizontal' | 'vertical';
+
+export interface Toast {
+    title?: string;
+    message: string;
+    variant: 'success' | 'danger' | 'warning' | 'info';
+    delay: number;
+}

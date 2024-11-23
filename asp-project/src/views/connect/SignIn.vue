@@ -1,9 +1,9 @@
 <template>
     <h1 class="center-header">
-        Se connecter
+        S'inscrire
     </h1>
     <div>
-        <AuthForm :fields="fields" :form-data="formData" class="auth-forms" form-type="SignIn">
+        <AuthForm :fields="fields" :submit="onSubmit" :form-data="formData" class="auth-forms" form-type="SignIn">
             <template #footer>
                 <Divider direction="horizontal" :width="80" />
                 <div class="text-center my-4">
@@ -14,22 +14,27 @@
             </template>
         </AuthForm>
     </div>
-
+    <Notification ref="notification" />
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
+import axios from 'axios';
+
 import AuthForm from '@/components/Forms/AuthForm.vue';
-import type { TField } from '@/components/Types/types';
 import Divider from '@/components/Tools/Divider.vue';
+import Notification from '@/components/Tools/Notification.vue';
+
+import type { TField } from '@/components/Types/types';
+
+const notification = ref<InstanceType<typeof Notification> | null>(null);
 
 const formData = ref({
     email: '',
-    f_name: '',
-    l_name: '',
+    first_name: '',
+    last_name: '',
     password: '',
     confirm_password: ''
 });
-
 
 const fields: TField[] = [
     {
@@ -50,7 +55,7 @@ const fields: TField[] = [
         ]
     },
     {
-        name: 'f_name',
+        name: 'first_name',
         type: 'text',
         label: 'Prénom',
         description: 'Min. 3 caractères et max. 50 caractères',
@@ -70,7 +75,7 @@ const fields: TField[] = [
         ]
     },
     {
-        name: 'l_name',
+        name: 'last_name',
         type: 'text',
         label: 'Nom de famille',
         description: 'Min. 3 caractères et max. 50 caractères',
@@ -116,10 +121,37 @@ const fields: TField[] = [
             },
             {
                 message: 'Les mots de passe ne correspondent pas !',
-                validate: (value: string) => value === formData.value.password 
+                validate: (value: string) => value === formData.value.password
             }
         ]
     }
 ]
+
+const onSubmit = () => {
+    axios.post(
+        `http://localhost:8000/api/users/auth/signup`,
+        {
+            email: formData.value.email,
+            first_name: formData.value.first_name,
+            last_name: formData.value.last_name,
+            password: formData.value.password
+        }
+    )
+    .then((response) => {
+        notification.value!.showToast({
+            message: "Compte créé avec succès.",
+            variant: 'danger',
+            delay: 3000,
+        });
+    })
+    .catch((error) => {
+        console.error("Erreur lors de la creation du compte: ", error)
+        notification.value!.showToast({
+            message: error.response.data.message,
+            variant: 'danger',
+            delay: 3000,
+        });
+    })
+}
 
 </script>

@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router'
 
 const isAuthenticated = () => {
-  return localStorage.getItem('authToken') !== null;
-};
+  return localStorage.getItem('authorization') !== null
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,7 +10,7 @@ const router = createRouter({
     {
       path: '/',
       redirect: () => {
-        return isAuthenticated() ? '/app' : '/auth/login';
+        return isAuthenticated() ? '/app' : '/auth/login'
       },
     },
     {
@@ -27,6 +27,16 @@ const router = createRouter({
           name: 'sign',
           component: () => import('@/views/connect/SignIn.vue'),
         },
+        //@ts-ignore
+        {
+          path: 'logout',
+          name: 'logout',
+          beforeEnter: (to, from, next) => {
+            localStorage.removeItem('authorization');
+
+            next('/auth/login');
+          }
+        },
       ],
     },
     {
@@ -35,16 +45,16 @@ const router = createRouter({
       component: () => import('@/views/app/HomeView.vue'),
     },
   ],
-});
+})
 
 router.beforeEach((to, from, next) => {
-  const publicPaths = ['/auth/login', '/auth/sign'];
-  const authRequired = !publicPaths.includes(to.path);
+  const publicPaths = ['/auth/login', '/auth/sign']
+  const authRequired = !publicPaths.includes(to.path)
 
   if (authRequired && !isAuthenticated()) {
-    return next('/auth/login');
+    return next('/auth/login')
   }
-  next();
-});
+  next()
+})
 
-export default router;
+export default router
